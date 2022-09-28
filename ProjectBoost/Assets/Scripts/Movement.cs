@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] float movementSpeed;
+    [SerializeField] int thrustingSpeed;
+    [SerializeField] float rotationSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -15,20 +16,31 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        InputAcces();
+        ThrustingAcces();
+        RotationAcces();
     }
 
-    void InputAcces()
+    void ThrustingAcces()
     {
-        if(Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0))
         {
-            GetComponent<Rigidbody>().AddForce(new Vector3(0, movementSpeed, 0));
-        } if(Input.GetKey(KeyCode.A))
+            GetComponent<Rigidbody>().AddRelativeForce(Vector3.up * thrustingSpeed * Time.deltaTime);
+        }
+    }
+    void RotationAcces()
+    {
+        if(Input.GetKey(KeyCode.A))
         {
-            GetComponent<Rigidbody>().AddForce(new Vector3(-movementSpeed, 0, 0));
-        }if(Input.GetKey(KeyCode.D))
+            Dorotate(rotationSpeed);
+        }
+        else if(Input.GetKey(KeyCode.D))
         {
-            GetComponent<Rigidbody>().AddForce(new Vector3(movementSpeed, 0, 0));
+            Dorotate(-rotationSpeed);
+        }
+
+        void Dorotate(float arahrotasi)
+        {
+            transform.Rotate(Vector3.forward * arahrotasi * Time.deltaTime);
         }
     }
 }
