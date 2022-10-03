@@ -9,10 +9,18 @@ public class Movement : MonoBehaviour
 
     Rigidbody rdb;
 
+    public AudioManagement audioManagement;
+
+    private void Awake()
+    {
+        audioManagement = GameObject.Find("AudioManagement").GetComponent<AudioManagement>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         rdb = GetComponent<Rigidbody>();
+        
     }
 
     // Update is called once per frame
@@ -26,7 +34,12 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Mouse0))
         {
-          rdb.AddRelativeForce(Vector3.up * thrustingSpeed * Time.deltaTime);
+            rdb.AddRelativeForce(Vector3.up * thrustingSpeed * Time.deltaTime);
+            audioManagement.SfxBoostPlay();
+        }
+        else
+        {
+            audioManagement.SfxBoostStop();
         }
     }
     void RotationAcces()
