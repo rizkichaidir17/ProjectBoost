@@ -7,10 +7,12 @@ public class Movement : MonoBehaviour
     [SerializeField] int thrustingSpeed;
     [SerializeField] float rotationSpeed;
 
+    Rigidbody rdb;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        rdb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -24,7 +26,7 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Mouse0))
         {
-            GetComponent<Rigidbody>().AddRelativeForce(Vector3.up * thrustingSpeed * Time.deltaTime);
+          rdb.AddRelativeForce(Vector3.up * thrustingSpeed * Time.deltaTime);
         }
     }
     void RotationAcces()
@@ -40,7 +42,9 @@ public class Movement : MonoBehaviour
 
         void Dorotate(float arahrotasi)
         {
+            rdb.freezeRotation = true;
             transform.Rotate(Vector3.forward * arahrotasi * Time.deltaTime);
+            rdb.freezeRotation = false;
         }
     }
 }
