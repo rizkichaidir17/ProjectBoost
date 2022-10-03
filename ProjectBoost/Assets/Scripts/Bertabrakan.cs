@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Bertabrakan : MonoBehaviour
 {
@@ -16,8 +17,15 @@ public class Bertabrakan : MonoBehaviour
                 Debug.Log("Finish");
                 break;
             default :
+                SceneLoader();
                 Debug.Log("You Die");
                 break;
         }
+    }
+
+    void SceneLoader()
+    {
+        int CurrentScene = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(CurrentScene);
     }
 }
