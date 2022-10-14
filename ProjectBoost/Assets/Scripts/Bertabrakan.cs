@@ -14,6 +14,7 @@ public class Bertabrakan : MonoBehaviour
                 Debug.Log("touch Fuel");
                 break;
             case "Finish":
+                LoadNextLevel();
                 Debug.Log("Finish");
                 break;
             default :
@@ -21,6 +22,17 @@ public class Bertabrakan : MonoBehaviour
                 Debug.Log("You Die");
                 break;
         }
+    }
+
+    void LoadNextLevel()
+    {
+        int CurrentScene = SceneManager.GetActiveScene().buildIndex;
+        int NextScene = CurrentScene + 1;
+        if(NextScene == SceneManager.sceneCountInBuildSettings)
+        {
+            NextScene = 0;
+        }
+        SceneManager.LoadScene(NextScene);
     }
 
     void SceneLoader()
