@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3470641646223958500}
   - component: {fileID: 2091777611}
   - component: {fileID: 3403745856657211993}
-  - component: {fileID: 1572663935}
+  - component: {fileID: 2897874913526611804}
   m_Layer: 0
   m_Name: Rocket
   m_TagString: Player
@@ -129,6 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thrustingSpeed: 1000
   rotationSpeed: 100
+  boostEngine: {fileID: 8300000, guid: 837086d19018e224e9b680ef4cd2c88b, type: 3}
   audioManagement: {fileID: 0}
 --- !u!114 &3403745856657211993
 MonoBehaviour:
@@ -142,7 +143,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77fde3b355b58f445b3bf8e9a682abd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!82 &1572663935
+  delay: 2
+  succes: {fileID: 0}
+  deathExplode: {fileID: 0}
+--- !u!82 &2897874913526611804
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -152,8 +156,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 837086d19018e224e9b680ef4cd2c88b, type: 3}
-  m_PlayOnAwake: 0
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

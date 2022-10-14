@@ -8,12 +8,14 @@ public class Movement : MonoBehaviour
     [SerializeField] float rotationSpeed;
 
     Rigidbody rdb;
+    AudioSource audioSource;
 
-    public AudioManagement audioManagement;
+    [HideInInspector]public AudioManagement audioManagement;
 
     private void Awake()
     {
         audioManagement = GameObject.Find("AudioManagement").GetComponent<AudioManagement>();
+        audioSource = GameObject.Find("AudioManagement").GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -35,11 +37,15 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse0))
         {
             rdb.AddRelativeForce(Vector3.up * thrustingSpeed * Time.deltaTime);
-            audioManagement.SfxBoostPlay();
+            if(!audioSource.isPlaying)
+            {
+                audioManagement.SfxBoostPlay();
+            }
+           
         }
         else
         {
-            audioManagement.SfxBoostStop();
+            audioSource.Stop();
         }
     }
     void RotationAcces()

@@ -2,17 +2,28 @@ using UnityEngine;
 
 public class AudioManagement : MonoBehaviour
 {
-    public AudioSource boostEngine;
+    [SerializeField] AudioClip engineBoost;
+    [SerializeField] AudioClip succes;
+    [SerializeField] AudioClip deathExplode;
+
+    AudioSource audioSource;
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     public void SfxBoostPlay()
     {
-        if(!boostEngine.isPlaying)
-        {
-            boostEngine.Play();
-        }
+       audioSource.PlayOneShot(engineBoost);
     }
-    public void SfxBoostStop()
+
+    public void sfxSucces()
     {
-        boostEngine.Stop();
+        audioSource.PlayOneShot(succes);
+    }
+
+    public void sfxExplode()
+    {
+        audioSource.PlayOneShot(deathExplode);
     }
 }
