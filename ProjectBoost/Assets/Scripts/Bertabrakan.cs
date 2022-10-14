@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 public class Bertabrakan : MonoBehaviour
 {
     [SerializeField] int delay = 2;
+    [SerializeField] ParticleSystem succesParticle;
+    [SerializeField] ParticleSystem explodeParticle;
 
 
     [HideInInspector] public AudioManagement audioManagement;
@@ -48,7 +50,7 @@ public class Bertabrakan : MonoBehaviour
         isTransitioning = true;
         audioSource.Stop();
         audioManagement.sfxSucces();
-        //add some particle
+        succesParticle.Play();
         GetComponent<Movement>().enabled = false;
         Invoke("LoadNextLevel", delay);
     }
@@ -58,7 +60,7 @@ public class Bertabrakan : MonoBehaviour
         isTransitioning = true;
         audioSource.Stop();
         audioManagement.sfxExplode();
-        //add some particle
+        explodeParticle.Play();
         GetComponent<Movement>().enabled = false;
         Invoke("ReloadScene", delay);
     }

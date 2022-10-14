@@ -6,6 +6,9 @@ public class Movement : MonoBehaviour
 {
     [SerializeField] int thrustingSpeed;
     [SerializeField] float rotationSpeed;
+    [SerializeField] ParticleSystem boostParticle;
+    [SerializeField] ParticleSystem boostleftParticle;
+    [SerializeField] ParticleSystem boostrightParticle;
 
     Rigidbody rdb;
     AudioSource audioSource;
@@ -36,34 +39,78 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Mouse0))
         {
-            rdb.AddRelativeForce(Vector3.up * thrustingSpeed * Time.deltaTime);
-            if(!audioSource.isPlaying)
-            {
-                audioManagement.SfxBoostPlay();
-            }
-           
+            DoThrusting();
+
         }
         else
         {
-            audioSource.Stop();
+            StopThrusting();
         }
     }
     void RotationAcces()
     {
-        if(Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
-            Dorotate(rotationSpeed);
+            RotatingLeft();
         }
-        else if(Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
         {
-            Dorotate(-rotationSpeed);
+            RotatingRight();
+        }
+        else
+        {
+            StopRotating();
         }
 
-        void Dorotate(float arahrotasi)
+    }
+
+    void DoThrusting()
+    {
+        rdb.AddRelativeForce(Vector3.up * thrustingSpeed * Time.deltaTime);
+        if (!audioSource.isPlaying)
         {
-            rdb.freezeRotation = true;
-            transform.Rotate(Vector3.forward * arahrotasi * Time.deltaTime);
-            rdb.freezeRotation = false;
+            audioManagement.SfxBoostPlay();
         }
+        if (!boostParticle.isPlaying)
+        {
+            boostParticle.Play();
+        }
+    }
+
+    void StopThrusting()
+    {
+        audioSource.Stop();
+        boostParticle.Stop();
+    }
+
+
+    void RotatingLeft()
+    {
+        Dorotate(rotationSpeed);
+        if (!boostrightParticle.isPlaying)
+        {
+            boostrightParticle.Play();
+        }
+    }
+
+    void RotatingRight()
+    {
+        Dorotate(-rotationSpeed);
+        if (!boostleftParticle.isPlaying)
+        {
+            boostleftParticle.Play();
+        }
+    }
+
+    void StopRotating()
+    {
+        boostrightParticle.Stop();
+        boostleftParticle.Stop();
+    }
+    void Dorotate(float arahrotasi)
+    {
+        rdb.freezeRotation = true;
+        transform.Rotate(Vector3.forward * arahrotasi * Time.deltaTime);
+        rdb.freezeRotation = false;
     }
 }
