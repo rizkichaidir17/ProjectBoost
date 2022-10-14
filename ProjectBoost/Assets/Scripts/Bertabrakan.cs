@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Bertabrakan : MonoBehaviour
 {
+    [SerializeField] int delay;
+
     private void OnCollisionEnter(Collision other)
     {
         switch (other.gameObject.tag)
@@ -14,14 +17,29 @@ public class Bertabrakan : MonoBehaviour
                 Debug.Log("touch Fuel");
                 break;
             case "Finish":
-                LoadNextLevel();
+                Finish();
                 Debug.Log("Finish");
                 break;
             default :
-                SceneLoader();
+                Crasing();
                 Debug.Log("You Die");
                 break;
         }
+    }
+
+    void Finish()
+    {
+        //add some sfx
+        //add some particle
+        Invoke("LoadNextLevel", delay);
+    }
+
+    void Crasing()
+    {
+        //add some sfx
+        //add some particle
+        GetComponent<Movement>().enabled = false;
+        Invoke("ReloadScene", delay);
     }
 
     void LoadNextLevel()
@@ -35,7 +53,7 @@ public class Bertabrakan : MonoBehaviour
         SceneManager.LoadScene(NextScene);
     }
 
-    void SceneLoader()
+    void ReloadScene()
     {
         int CurrentScene = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(CurrentScene);
