@@ -10,7 +10,8 @@ public class Movement : MonoBehaviour
     [SerializeField] ParticleSystem boostParticle;
     [SerializeField] ParticleSystem boostleftParticle;
     [SerializeField] ParticleSystem boostrightParticle;
-    [SerializeField] 
+    [SerializeField] Slider fuelValue;
+    [SerializeField] int fuelUse;
     Rigidbody rdb;
     AudioSource audioSource;
 
@@ -41,7 +42,7 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse0))
         {
             DoThrusting();
-
+            FuelSystem();
         }
         else
         {
@@ -76,6 +77,11 @@ public class Movement : MonoBehaviour
         {
             boostParticle.Play();
         }
+    }
+
+    void FuelSystem()
+    {
+        fuelValue.value -= fuelUse * Time.deltaTime;
     }
 
     void StopThrusting()
