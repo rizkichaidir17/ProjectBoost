@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Movement : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class Movement : MonoBehaviour
     [SerializeField] ParticleSystem boostParticle;
     [SerializeField] ParticleSystem boostleftParticle;
     [SerializeField] ParticleSystem boostrightParticle;
-
+    [SerializeField] 
     Rigidbody rdb;
     AudioSource audioSource;
 
