@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Movement : MonoBehaviour
 {
@@ -10,12 +9,15 @@ public class Movement : MonoBehaviour
     [SerializeField] ParticleSystem boostParticle;
     [SerializeField] ParticleSystem boostleftParticle;
     [SerializeField] ParticleSystem boostrightParticle;
-    [SerializeField] Slider fuelValue;
-    [SerializeField] int fuelUse;
+    [SerializeField] float maxFuel;
+    [SerializeField] float currentFuel;
+    [SerializeField] float fuelUse;
     Rigidbody rdb;
     AudioSource audioSource;
 
     [HideInInspector]public AudioManagement audioManagement;
+
+    public FuelBar FuelBar;
 
     private void Awake()
     {
@@ -27,7 +29,8 @@ public class Movement : MonoBehaviour
     void Start()
     {
         rdb = GetComponent<Rigidbody>();
-        
+        currentFuel = maxFuel;
+        FuelBar.SetMaxFuel(maxFuel);
     }
 
     // Update is called once per frame
@@ -42,7 +45,7 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse0))
         {
             DoThrusting();
-            FuelSystem();
+            FuelSystem(fuelUse);
         }
         else
         {
@@ -79,9 +82,10 @@ public class Movement : MonoBehaviour
         }
     }
 
-    void FuelSystem()
+    void FuelSystem(float fuelUse)
     {
-        
+        currentFuel -= fuelUse * Time.deltaTime;
+        FuelBar.SetFuel(currentFuel);
     }
 
     void StopThrusting()
