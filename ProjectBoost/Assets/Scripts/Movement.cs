@@ -81,7 +81,7 @@ public class Movement : MonoBehaviour
 
     void FuelSystem()
     {
-        fuelValue.value -= fuelUse * Time.deltaTime;
+        
     }
 
     void StopThrusting()
